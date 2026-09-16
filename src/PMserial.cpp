@@ -57,7 +57,7 @@ const uint8_t
 
 const uint8_t
     msgLen = 7,
-    //act[msgLen] = {0x42,0x4D,0xE1,0x00,0x01,0x01,0x71}, // set active mode
+    act[msgLen] = {0x42,0x4D,0xE1,0x00,0x01,0x01,0x71}, // set active mode
     slp[msgLen] = {0x42,0x4D,0xE4,0x00,0x00,0x01,0x73}, // sleep
     wak[msgLen] = {0x42,0x4D,0xE4,0x00,0x01,0x01,0x74}, // wake
     cfg[msgLen] = {0x42, 0x4D, 0xE1, 0x00, 0x00, 0x01, 0x70}, // set passive mode
@@ -100,6 +100,10 @@ void SerialPM::wake() {
   uart->write(wak, msgLen);  // wake mode 
   uart->flush();
   delay(max_wait_ms * 2);
+}
+void SerialPM::setActiveMode() {
+  uart->write(act, msgLen);  // active (continuous) mode: sensor streams ~1 Hz unprompted
+  uart->flush();
 }
 
 SerialPM::STATUS SerialPM::trigRead()

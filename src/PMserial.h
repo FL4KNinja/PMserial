@@ -144,6 +144,7 @@ public:
   operator bool() { return status == OK; }
   void sleep();
   void wake();
+  void setActiveMode(); // continuous ~1 Hz output (PMSx003 power-on default)
   inline bool has_particulate_matter() { return status == OK; }
   inline bool has_number_concentration() { return (status == OK) && (pms != PMS3003); }
   inline bool has_temperature_humidity() { return (status == OK) && ((pms == PMS5003T) || (pms == PMS5003ST)); }
