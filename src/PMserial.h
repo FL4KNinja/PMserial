@@ -90,6 +90,9 @@ public:
   {
     uart = &serial;
     hwSerial = serModeHardware;
+#ifdef ESP32
+    rx = tx = 0; // caller configures the UART pins; keeps init() from re-begin with garbage pins
+#endif
   }
 #endif
 
