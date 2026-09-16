@@ -141,6 +141,9 @@ public:
 
   STATUS status;
   STATUS read(bool tsi_mode = false, bool truncated_num = false);
+  // active (continuous) mode: parse the next streamed frame without flushing RX or
+  // sending a passive-mode trigger
+  STATUS readActive(bool tsi_mode = false, bool truncated_num = false);
   operator bool() { return status == OK; }
   void sleep();
   void wake();
@@ -190,6 +193,8 @@ protected:
 
   // utility functions
   STATUS trigRead();
+  STATUS trigReadStream();
+  STATUS readBody(size_t headLen, uint32_t start_ms);
   bool checkBuffer(size_t bufferLen);
   void decodeBuffer(bool tsi_mode, bool truncated_num);
 
